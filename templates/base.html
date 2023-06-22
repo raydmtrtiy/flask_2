@@ -4,10 +4,9 @@
 <head>
   <meta charset="UTF-8">
   <link type="text/css" href="{{ url_for('static', filename='css/style.css')}}" rel="stylesheet" />
-  <link rel="icon" href="{{ url_for('static', filename='favicon.png') }}" type="image/png">
   {% block title -%}
   {% if title %}
-  <title>About Flask - {{ title }}</title>
+  <title>About Flask - {{title}}</title>
   {% else %}
   <title>About Flask</title>
   {% endif %}
@@ -18,8 +17,8 @@
   {% block content -%}
   {%- block mainmenu -%}
   <ul class="mainmenu">
-    {% for name in menu %}
-    <li><a href="">{{name}}</a></li>
+    {% for p in menu %}
+    <li><a href="{{p.url}}">{{p.name}}</a></li>
     {% endfor %}
   </ul>
   {% endblock mainmenu -%}
