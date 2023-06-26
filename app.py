@@ -4,14 +4,14 @@ from flask import Flask, render_template, request, g, url_for, flash, abort
 from FDataBase import FDataBase
 
 # configuration
-DATABASE ='/tmp/Flask.db'
+DATABASE ='Flask.db'
 DEBUG = True
 
 app = Flask(__name__)
 app.config.from_object(__name__)
 app.secret_key = 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'
 
-app.config.update(dict(DATABASE=os.path.join(app.root_path, '../Flask.db')))
+app.config.update(dict(DATABASE=os.path.join(app.root_path, 'Flask.db')))
 
 
 def connect_db():

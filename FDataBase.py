@@ -7,10 +7,12 @@ from flask import url_for
 
 
 class FDataBase:
-    db = sqlite3.connect('Flask.db')
-    def init(self, db):
-        self.__db = db
+    def __init__(self, db=None):
+        self.__db = sqlite3.connect('Flask.db')
         self.__cur = self.__db.cursor()
+
+    def __del__(self):
+        self.__db.close()
 
     def getMenu(self):
         sql = '''SELECT * FROM mainmenu'''
@@ -23,24 +25,11 @@ class FDataBase:
             print("Error reading from DB")
         return []
 
-    def addPost(self, title, text, url):
+    def addPost(self, title, text ):
         try:
-            self.__cur.execute(
-                f"SELECT COUNT() as count FROM posts WHERE url LIKE '{url}'")
-            res = self.__cur.fetchone()
-            if res['count'] > 0:
-                print("An article with this url already exists")
-                return False
-
-            base = url_for('static', filename='images_html')
-
-            text = re.sub(r"(?P<tag><img\s+[^>]*src=)(?P<quote>[\"'])(?P<url>.+?)(?P=quote)>",
-                          "\\g<tag>" + base + "/\\g<url>>",
-                          text)
-
             tm = math.floor(time.time())
             self.__cur.execute(
-                'INSERT INTO posts VALUES(NULL, ?, ?, ?, ?)', (title, text, url, tm))
+                'INSERT INTO posts VALUES(NULL, ?, ?, ?, ?)', (title, text, "URL", tm ))
             self.__db.commit()
         except sqlite3.Error as e:
             print("Error adding article to DB" + str(e))

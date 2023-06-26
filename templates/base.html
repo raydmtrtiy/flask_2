@@ -17,8 +17,8 @@
   {% block content -%}
   {%- block mainmenu -%}
   <ul class="mainmenu">
-    {% for p in menu %}
-    <li><a href="{{p.url}}">{{p.name}}</a></li>
+    {% for element in menu %}
+    <li><a href="{{element[2]}}">{{element[1]}}</a></li>
     {% endfor %}
   </ul>
   {% endblock mainmenu -%}
